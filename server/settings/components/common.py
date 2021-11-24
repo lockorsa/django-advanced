@@ -23,7 +23,13 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 INSTALLED_APPS: Tuple[str, ...] = (
     # Your apps go here:
+    'server.apps.adminapp',
+    'server.apps.authapp',
+    'server.apps.basket',
+    'server.apps.geekshop',
+    'server.apps.index',
     'server.apps.main',
+    'server.apps.news',
 
     # Default django apps:
     'django.contrib.auth',
@@ -81,18 +87,9 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('POSTGRES_DB'),
-        'USER': config('POSTGRES_USER'),
-        'PASSWORD': config('POSTGRES_PASSWORD'),
-        'HOST': config('DJANGO_DATABASE_HOST'),
-        'PORT': config('DJANGO_DATABASE_PORT', cast=int),
-        'CONN_MAX_AGE': config('CONN_MAX_AGE', cast=int, default=60),
-        'OPTIONS': {
-            'connect_timeout': 10,
-            'options': '-c statement_timeout=15000ms',
-        },
-    },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
@@ -125,6 +122,10 @@ STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+STATICFILES_DIRS = (
+    BASE_DIR.joinpath('static'),
 )
 
 
@@ -205,3 +206,10 @@ EMAIL_TIMEOUT = 5
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+# LOGIN REDIRECT VALUE
+LOGIN_URL = '/login/'
+
+# STANDARD USER MODEL
+AUTH_USER_MODEL = 'authapp.ShopUser'
