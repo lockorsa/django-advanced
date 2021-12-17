@@ -2,7 +2,7 @@ import datetime as dt
 
 from django.core.management.base import BaseCommand
 
-from authapp.models import ShopUser
+from server.apps.authapp.models import ShopUser
 
 
 class Command(BaseCommand):
@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         birth_date = self.get_date_above_age_limit()
-        
+
         ShopUser.objects.create_superuser(
             'django',
             'django@geekshop.local',

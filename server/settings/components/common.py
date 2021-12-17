@@ -111,7 +111,7 @@ LOCALE_PATHS = (
 )
 
 USE_TZ = True
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -168,7 +168,11 @@ MEDIA_ROOT = BASE_DIR.joinpath('media')
 AUTHENTICATION_BACKENDS = (
     'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
 )
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = config('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = config('SOCIAL_AUTH_VK_OAUTH2_SECRET')
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
